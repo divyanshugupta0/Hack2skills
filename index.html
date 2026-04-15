@@ -1,0 +1,1821 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>VenueFlow — AI Stadium Experience Platform</title>
+        <meta
+            name="description"
+            content="VenueFlow transforms live sporting events with AI crowd intelligence, predictive queuing, digital twin visualization, and real-time wayfinding."
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Product+Sans:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <!-- Splash Loader -->
+        <div id="splash" class="splash">
+            <div class="splash-inner">
+                <div class="splash-logo-wrap">
+                    <div class="splash-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="14" fill="url(#splashGrad)" />
+                            <path
+                                d="M14 24C14 18.477 18.477 14 24 14V14C29.523 14 34 18.477 34 24V24C34 29.523 29.523 34 24 34V34C18.477 34 14 29.523 14 24V24Z"
+                                stroke="white"
+                                stroke-width="2"
+                            />
+                            <path
+                                d="M20 24L23 27L28 21"
+                                stroke="white"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <defs>
+                                <linearGradient id="splashGrad" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#4285F4" />
+                                    <stop offset="1" stop-color="#7C3AED" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h1 class="splash-title">VenueFlow</h1>
+                    <p class="splash-sub">Initializing your stadium experience...</p>
+                </div>
+                <div class="splash-bar"><div class="splash-progress" id="splash-progress"></div></div>
+            </div>
+        </div>
+
+        <!-- App Shell -->
+        <div id="app" class="app hidden">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-brand">
+                    <div class="brand-icon">
+                        <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="14" fill="url(#brandGrad)" />
+                            <path
+                                d="M14 24C14 18.477 18.477 14 24 14C29.523 14 34 18.477 34 24C34 29.523 29.523 34 24 34C18.477 34 14 29.523 14 24Z"
+                                stroke="white"
+                                stroke-width="2"
+                            />
+                            <path
+                                d="M20 24L23 27L28 21"
+                                stroke="white"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <defs>
+                                <linearGradient id="brandGrad" x1="0" y1="0" x2="48" y2="48">
+                                    <stop stop-color="#4285F4" />
+                                    <stop offset="1" stop-color="#7C3AED" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="brand-name">VenueFlow</span>
+                </div>
+
+                <div class="sidebar-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search features..." id="sidebar-search-input" />
+                </div>
+
+                <nav class="sidebar-nav">
+                    <div class="nav-group">
+                        <span class="nav-group-label">Overview</span>
+                        <a class="nav-link active" data-page="dashboard" id="nav-dashboard">
+                            <i class="fas fa-grid-2"></i><span>Dashboard</span>
+                        </a>
+                        <a class="nav-link" data-page="digital-twin" id="nav-digital-twin">
+                            <i class="fas fa-cube"></i><span>Digital Twin</span>
+                        </a>
+                    </div>
+                    <div class="nav-group">
+                        <span class="nav-group-label">Crowd & Flow</span>
+                        <a class="nav-link" data-page="crowd-intel" id="nav-crowd-intel">
+                            <i class="fas fa-users-viewfinder"></i><span>Crowd Intelligence</span>
+                        </a>
+                        <a class="nav-link" data-page="smart-queue" id="nav-smart-queue">
+                            <i class="fas fa-clock-rotate-left"></i><span>Smart Queue</span>
+                            <span class="nav-pill live">LIVE</span>
+                        </a>
+                        <a class="nav-link" data-page="wayfinding" id="nav-wayfinding">
+                            <i class="fas fa-diamond-turn-right"></i><span>Wayfinding</span>
+                        </a>
+                    </div>
+                    <div class="nav-group">
+                        <span class="nav-group-label">Experience</span>
+                        <a class="nav-link" data-page="fan-zone" id="nav-fan-zone">
+                            <i class="fas fa-trophy"></i><span>Fan Zone</span>
+                        </a>
+                        <a class="nav-link" data-page="social-pulse" id="nav-social-pulse">
+                            <i class="fas fa-heart-pulse"></i><span>Social Pulse</span>
+                        </a>
+                        <a class="nav-link" data-page="food-order" id="nav-food-order">
+                            <i class="fas fa-burger"></i><span>Food & Beverage</span>
+                            <span class="nav-pill new">NEW</span>
+                        </a>
+                    </div>
+                    <div class="nav-group">
+                        <span class="nav-group-label">Services</span>
+                        <a class="nav-link" data-page="parking" id="nav-parking">
+                            <i class="fas fa-square-parking"></i><span>Smart Parking</span>
+                        </a>
+                        <a class="nav-link" data-page="transport" id="nav-transport">
+                            <i class="fas fa-bus"></i><span>Transport Hub</span>
+                        </a>
+                        <a class="nav-link" data-page="accessibility" id="nav-accessibility">
+                            <i class="fas fa-universal-access"></i><span>Accessibility</span>
+                        </a>
+                        <a class="nav-link" data-page="safety" id="nav-safety">
+                            <i class="fas fa-shield-halved"></i><span>Safety Center</span>
+                        </a>
+                    </div>
+                </nav>
+
+                <div class="sidebar-bottom">
+                    <div class="live-match-mini">
+                        <div class="lmm-dot"></div>
+                        <div class="lmm-info">
+                            <span class="lmm-status">Live Now</span>
+                            <span class="lmm-teams">Thunder FC vs Storm Utd</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main -->
+            <main class="main">
+                <!-- Header -->
+                <header class="header">
+                    <div class="header-left">
+                        <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+                        <div class="header-title-area">
+                            <h1 class="header-title" id="header-title">Dashboard</h1>
+                            <div class="header-breadcrumb">
+                                <span class="breadcrumb-item">VenueFlow</span>
+                                <i class="fas fa-chevron-right"></i>
+                                <span class="breadcrumb-item active" id="breadcrumb-page">Dashboard</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-center">
+                        <div class="match-ticker">
+                            <div class="ticker-team"><span class="ticker-logo">⚡</span>Thunder FC</div>
+                            <div class="ticker-score">
+                                <span class="ticker-num">2</span>
+                                <span class="ticker-sep">-</span>
+                                <span class="ticker-num">1</span>
+                            </div>
+                            <div class="ticker-team"><span class="ticker-logo">🌩️</span>Storm Utd</div>
+                            <div class="ticker-time">
+                                <span class="ticker-live-dot"></span><span id="ticker-time">62:34</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <button class="header-icon-btn" id="theme-toggle" title="Toggle theme">
+                            <i class="fas fa-sun"></i>
+                        </button>
+                        <button class="header-icon-btn" id="notif-btn" title="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="notif-badge">3</span>
+                        </button>
+                        <div class="header-weather">
+                            <i class="fas fa-cloud-sun"></i>
+                            <span>24°C</span>
+                        </div>
+                        <div class="header-avatar" id="header-avatar">
+                            <img
+                                src="https://api.dicebear.com/7.x/initials/svg?seed=AF&backgroundColor=4285F4&textColor=ffffff"
+                                alt="User"
+                            />
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Content -->
+                <div class="content" id="content">
+                    <!-- ============ DASHBOARD ============ -->
+                    <section class="page active" id="page-dashboard">
+                        <!-- Welcome Banner -->
+                        <div class="welcome-banner">
+                            <div class="wb-text">
+                                <h2>Welcome back, Alex! 👋</h2>
+                                <p>Match day is live — here's your personalized overview of Apex Arena.</p>
+                            </div>
+                            <div class="wb-stats">
+                                <div class="wb-stat">
+                                    <span class="wb-stat-val">52,400</span>
+                                    <span class="wb-stat-lbl">Attendance</span>
+                                </div>
+                                <div class="wb-stat">
+                                    <span class="wb-stat-val">95.3%</span>
+                                    <span class="wb-stat-lbl">Capacity</span>
+                                </div>
+                                <div class="wb-stat">
+                                    <span class="wb-stat-val">4.2 min</span>
+                                    <span class="wb-stat-lbl">Avg Wait</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Metric Cards -->
+                        <div class="metrics-grid">
+                            <div class="metric-card blue">
+                                <div class="mc-icon"><i class="fas fa-users"></i></div>
+                                <div class="mc-data">
+                                    <span class="mc-value" id="mc-attendance">52,400</span>
+                                    <span class="mc-label">Total Attendance</span>
+                                </div>
+                                <span class="mc-badge up"><i class="fas fa-arrow-up"></i> 98.2%</span>
+                            </div>
+                            <div class="metric-card purple">
+                                <div class="mc-icon"><i class="fas fa-hourglass-half"></i></div>
+                                <div class="mc-data">
+                                    <span class="mc-value" id="mc-wait">4.2m</span>
+                                    <span class="mc-label">Avg Queue Wait</span>
+                                </div>
+                                <span class="mc-badge down"><i class="fas fa-arrow-down"></i> -32%</span>
+                            </div>
+                            <div class="metric-card green">
+                                <div class="mc-icon"><i class="fas fa-wind"></i></div>
+                                <div class="mc-data">
+                                    <span class="mc-value">Optimal</span>
+                                    <span class="mc-label">Crowd Flow</span>
+                                </div>
+                                <span class="mc-badge up"><i class="fas fa-check"></i> Smooth</span>
+                            </div>
+                            <div class="metric-card orange">
+                                <div class="mc-icon"><i class="fas fa-face-smile"></i></div>
+                                <div class="mc-data">
+                                    <span class="mc-value" id="mc-satisfaction">94%</span>
+                                    <span class="mc-label">Fan Satisfaction</span>
+                                </div>
+                                <span class="mc-badge up"><i class="fas fa-arrow-up"></i> +8%</span>
+                            </div>
+                            <div class="metric-card teal">
+                                <div class="mc-icon"><i class="fas fa-car"></i></div>
+                                <div class="mc-data">
+                                    <span class="mc-value">89%</span>
+                                    <span class="mc-label">Parking Filled</span>
+                                </div>
+                                <span class="mc-badge warn"><i class="fas fa-clock"></i> Filling</span>
+                            </div>
+                            <div class="metric-card pink">
+                                <div class="mc-icon"><i class="fas fa-utensils"></i></div>
+                                <div class="mc-data">
+                                    <span class="mc-value">1,847</span>
+                                    <span class="mc-label">Food Orders</span>
+                                </div>
+                                <span class="mc-badge up"><i class="fas fa-arrow-up"></i> +24%</span>
+                            </div>
+                        </div>
+
+                        <!-- Dashboard Grid -->
+                        <div class="dash-grid">
+                            <!-- Stadium Mini Map -->
+                            <div class="card card-lg">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-cube"></i> Live Stadium Overview</div>
+                                    <div class="card-chips">
+                                        <button class="chip active" data-view="density">Density</button>
+                                        <button class="chip" data-view="flow">Flow</button>
+                                        <button class="chip" data-view="temp">Temp</button>
+                                    </div>
+                                </div>
+                                <div class="card-body stadium-body">
+                                    <canvas id="stadium-canvas"></canvas>
+                                    <div class="stadium-zones">
+                                        <div class="sz sz-north">
+                                            <span class="sz-name">North</span><span class="sz-pct high">92%</span>
+                                        </div>
+                                        <div class="sz sz-south">
+                                            <span class="sz-name">South</span><span class="sz-pct med">74%</span>
+                                        </div>
+                                        <div class="sz sz-east">
+                                            <span class="sz-name">East</span><span class="sz-pct high">88%</span>
+                                        </div>
+                                        <div class="sz sz-west">
+                                            <span class="sz-name">West</span><span class="sz-pct low">61%</span>
+                                        </div>
+                                        <div class="sz sz-center">
+                                            <span class="sz-name">VIP</span><span class="sz-pct low">45%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- AI Feed -->
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-sparkles"></i> AI Insights Feed</div>
+                                    <span class="card-auto-badge"><i class="fas fa-sync-alt fa-spin"></i> Live</span>
+                                </div>
+                                <div class="card-body feed-body" id="feed-body">
+                                    <!-- JS populated -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Row -->
+                        <div class="dash-grid-2">
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title">
+                                        <i class="fas fa-chart-area"></i> Crowd Density Timeline
+                                    </div>
+                                </div>
+                                <div class="card-body"><canvas id="density-chart"></canvas></div>
+                            </div>
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-robot"></i> AI Recommendations</div>
+                                </div>
+                                <div class="card-body" id="recs-body"><!-- JS populated --></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ DIGITAL TWIN ============ -->
+                    <section class="page" id="page-digital-twin">
+                        <div class="page-hero blue-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-cube"></i> Digital Twin — Live 3D Stadium</h2>
+                                <p>
+                                    Real-time digital replica of the entire venue with IoT sensor data, crowd movement
+                                    patterns, and environmental monitoring.
+                                </p>
+                            </div>
+                            <div class="ph-stats">
+                                <div class="ph-stat">
+                                    <span class="ph-val">2,400</span><span class="ph-lbl">IoT Sensors</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">0.1s</span><span class="ph-lbl">Latency</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">99.9%</span><span class="ph-lbl">Uptime</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="twin-grid">
+                            <div class="card card-xl">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-layer-group"></i> 3D Stadium Model</div>
+                                    <div class="card-chips">
+                                        <button class="chip active">Level 1</button><button class="chip">Level 2</button
+                                        ><button class="chip">Level 3</button><button class="chip">Roof</button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="twin-canvas" style="width: 100%; height: 400px"></canvas>
+                                </div>
+                            </div>
+                            <div class="twin-side">
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title">
+                                            <i class="fas fa-temperature-half"></i> Environment
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="env-grid">
+                                            <div class="env-item">
+                                                <i class="fas fa-thermometer-half"></i
+                                                ><span class="env-val">23.4°C</span
+                                                ><span class="env-lbl">Temperature</span>
+                                            </div>
+                                            <div class="env-item">
+                                                <i class="fas fa-droplet"></i><span class="env-val">58%</span
+                                                ><span class="env-lbl">Humidity</span>
+                                            </div>
+                                            <div class="env-item">
+                                                <i class="fas fa-volume-high"></i><span class="env-val">94 dB</span
+                                                ><span class="env-lbl">Noise Level</span>
+                                            </div>
+                                            <div class="env-item">
+                                                <i class="fas fa-wind"></i><span class="env-val">12 km/h</span
+                                                ><span class="env-lbl">Wind Speed</span>
+                                            </div>
+                                            <div class="env-item">
+                                                <i class="fas fa-eye"></i><span class="env-val">Good</span
+                                                ><span class="env-lbl">Air Quality</span>
+                                            </div>
+                                            <div class="env-item">
+                                                <i class="fas fa-sun"></i><span class="env-val">UV 3</span
+                                                ><span class="env-lbl">UV Index</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-bolt"></i> IoT Alerts</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="iot-alerts">
+                                            <div class="iot-alert warn">
+                                                <i class="fas fa-thermometer-full"></i>
+                                                <div>
+                                                    <strong>Sector D Warming</strong>
+                                                    <p>Temperature 2°C above comfort zone. HVAC adjusting.</p>
+                                                </div>
+                                            </div>
+                                            <div class="iot-alert info">
+                                                <i class="fas fa-lightbulb"></i>
+                                                <div>
+                                                    <strong>Lighting Optimal</strong>
+                                                    <p>All 340 smart lights operating at match-day levels.</p>
+                                                </div>
+                                            </div>
+                                            <div class="iot-alert ok">
+                                                <i class="fas fa-check-circle"></i>
+                                                <div>
+                                                    <strong>Structural OK</strong>
+                                                    <p>All vibration sensors within safe parameters.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ CROWD INTELLIGENCE ============ -->
+                    <section class="page" id="page-crowd-intel">
+                        <div class="page-hero purple-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-brain"></i> Crowd Intelligence Engine</h2>
+                                <p>
+                                    AI-powered crowd analysis using computer vision, BLE beacons, and pressure sensors
+                                    for real-time density mapping and predictive flow optimization.
+                                </p>
+                            </div>
+                            <div class="ph-stats">
+                                <div class="ph-stat">
+                                    <span class="ph-val">12</span><span class="ph-lbl">CV Cameras</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">0.3s</span><span class="ph-lbl">Update Rate</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">99.4%</span><span class="ph-lbl">Accuracy</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crowd-grid">
+                            <div class="card card-lg">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-fire"></i> Live Heatmap</div>
+                                    <div class="heatmap-legend">
+                                        <span class="hl-item"><span class="hl-dot low"></span>Low</span
+                                        ><span class="hl-item"><span class="hl-dot med"></span>Med</span
+                                        ><span class="hl-item"><span class="hl-dot high"></span>High</span
+                                        ><span class="hl-item"><span class="hl-dot crit"></span>Critical</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="heatmap-canvas" style="width: 100%; height: 350px"></canvas>
+                                </div>
+                            </div>
+                            <div class="crowd-side">
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title">
+                                            <i class="fas fa-bars-staggered"></i> Zone Breakdown
+                                        </div>
+                                    </div>
+                                    <div class="card-body" id="zone-breakdown">
+                                        <div class="zone-row">
+                                            <span class="zr-name">North Stand</span>
+                                            <div class="zr-bar">
+                                                <div class="zr-fill high" style="width: 92%"></div>
+                                            </div>
+                                            <span class="zr-pct high">92%</span>
+                                        </div>
+                                        <div class="zone-row">
+                                            <span class="zr-name">East Wing</span>
+                                            <div class="zr-bar">
+                                                <div class="zr-fill high" style="width: 88%"></div>
+                                            </div>
+                                            <span class="zr-pct high">88%</span>
+                                        </div>
+                                        <div class="zone-row">
+                                            <span class="zr-name">South Stand</span>
+                                            <div class="zr-bar"><div class="zr-fill med" style="width: 74%"></div></div>
+                                            <span class="zr-pct med">74%</span>
+                                        </div>
+                                        <div class="zone-row">
+                                            <span class="zr-name">Concourse</span>
+                                            <div class="zr-bar"><div class="zr-fill med" style="width: 68%"></div></div>
+                                            <span class="zr-pct med">68%</span>
+                                        </div>
+                                        <div class="zone-row">
+                                            <span class="zr-name">West Wing</span>
+                                            <div class="zr-bar"><div class="zr-fill low" style="width: 61%"></div></div>
+                                            <span class="zr-pct low">61%</span>
+                                        </div>
+                                        <div class="zone-row">
+                                            <span class="zr-name">VIP Lounge</span>
+                                            <div class="zr-bar"><div class="zr-fill low" style="width: 45%"></div></div>
+                                            <span class="zr-pct low">45%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title">
+                                            <i class="fas fa-wand-magic-sparkles"></i> Predictions
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="prediction warn-pred">
+                                            <div class="pred-icon warn">
+                                                <i class="fas fa-triangle-exclamation"></i>
+                                            </div>
+                                            <div class="pred-text">
+                                                <strong>Congestion in 8 min</strong>
+                                                <p>
+                                                    North corridors will reach critical density at halftime.
+                                                    Pre-ordering recommended.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="prediction info-pred">
+                                            <div class="pred-icon info"><i class="fas fa-lightbulb"></i></div>
+                                            <div class="pred-text">
+                                                <strong>Restroom Window NOW</strong>
+                                                <p>Sector B restrooms at minimum traffic. Wait: ~45s.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ SMART QUEUE ============ -->
+                    <section class="page" id="page-smart-queue">
+                        <div class="page-hero green-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-wand-magic-sparkles"></i> Smart Virtual Queue</h2>
+                                <p>
+                                    Never stand in line. AI-powered virtual queuing with real-time wait predictions,
+                                    smart routing, and mobile notifications when it's your turn.
+                                </p>
+                            </div>
+                            <div class="ph-stats">
+                                <div class="ph-stat">
+                                    <span class="ph-val">73%</span><span class="ph-lbl">Queue Reduction</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">2.1m</span><span class="ph-lbl">Avg Wait</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">1,847</span><span class="ph-lbl">Active Orders</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="queue-layout">
+                            <div class="card card-lg">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-store"></i> Live Wait Times</div>
+                                    <div class="card-chips">
+                                        <button class="chip active" data-filter="all">All</button
+                                        ><button class="chip" data-filter="food">Food</button
+                                        ><button class="chip" data-filter="merch">Merch</button
+                                        ><button class="chip" data-filter="restroom">Restroom</button>
+                                    </div>
+                                </div>
+                                <div class="card-body" id="queue-list"><!-- JS --></div>
+                            </div>
+                            <div class="queue-side">
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-ticket"></i> Your Queue</div>
+                                    </div>
+                                    <div class="card-body" id="your-queue">
+                                        <div class="empty-state">
+                                            <i class="fas fa-inbox"></i>
+                                            <p>No active queue</p>
+                                            <small>Join a virtual queue to skip the line!</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card ai-suggest-card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-robot"></i> AI Recommends</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="ai-suggest">
+                                            <div class="ai-avatar-icon"><i class="fas fa-microchip"></i></div>
+                                            <div class="ai-text">
+                                                <p>
+                                                    Based on your seat <strong>(Section B, Row 12)</strong>, I recommend
+                                                    <strong>Beverage Station B</strong> — only
+                                                    <strong>2 min wait</strong> and closest to you.
+                                                </p>
+                                                <button class="btn-primary" onclick="navigateTo('wayfinding')">
+                                                    <i class="fas fa-route"></i> Navigate There
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ WAYFINDING ============ -->
+                    <section class="page" id="page-wayfinding">
+                        <div class="page-hero teal-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-compass"></i> AR Wayfinding & Indoor Navigation</h2>
+                                <p>
+                                    GPS-free indoor navigation using 340 BLE beacons, visual SLAM, and AI pathfinding.
+                                    Turn-by-turn directions with AR overlay support.
+                                </p>
+                            </div>
+                            <div class="ph-stats">
+                                <div class="ph-stat">
+                                    <span class="ph-val">±1.5m</span><span class="ph-lbl">Precision</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">340</span><span class="ph-lbl">Beacons</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="way-layout">
+                            <div class="card card-lg">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-map"></i> Venue Map</div>
+                                    <div class="card-chips">
+                                        <button class="chip active">Level 1</button><button class="chip">Level 2</button
+                                        ><button class="chip">Level 3</button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="wayfinding-canvas" style="width: 100%; height: 400px"></canvas>
+                                </div>
+                            </div>
+                            <div class="way-side">
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-location-dot"></i> Quick Navigate</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="search-box">
+                                            <i class="fas fa-search"></i
+                                            ><input type="text" placeholder="Where to?" id="way-search" />
+                                        </div>
+                                        <div class="dest-grid">
+                                            <button class="dest-card" data-dest="seat">
+                                                <i class="fas fa-chair"></i><span>My Seat</span><small>B-12-5</small>
+                                            </button>
+                                            <button class="dest-card" data-dest="food">
+                                                <i class="fas fa-utensils"></i><span>Food</span><small>2 min</small>
+                                            </button>
+                                            <button class="dest-card" data-dest="wc">
+                                                <i class="fas fa-restroom"></i><span>Restroom</span><small>1 min</small>
+                                            </button>
+                                            <button class="dest-card" data-dest="exit">
+                                                <i class="fas fa-door-open"></i><span>Exit</span><small>3 min</small>
+                                            </button>
+                                            <button class="dest-card" data-dest="merch">
+                                                <i class="fas fa-bag-shopping"></i><span>Merch</span
+                                                ><small>5 min</small>
+                                            </button>
+                                            <button class="dest-card" data-dest="med">
+                                                <i class="fas fa-kit-medical"></i><span>Medical</span
+                                                ><small>4 min</small>
+                                            </button>
+                                            <button class="dest-card" data-dest="atm">
+                                                <i class="fas fa-credit-card"></i><span>ATM</span><small>3 min</small>
+                                            </button>
+                                            <button class="dest-card" data-dest="info">
+                                                <i class="fas fa-circle-info"></i><span>Info Desk</span
+                                                ><small>2 min</small>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card hidden" id="route-card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-route"></i> Route</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="route-eta">
+                                            <span class="eta-big">2:30</span><span class="eta-lbl">Est. Time</span>
+                                        </div>
+                                        <div class="route-meta">
+                                            <span><i class="fas fa-shoe-prints"></i> 180m</span
+                                            ><span><i class="fas fa-stairs"></i> 1 level</span>
+                                        </div>
+                                        <div class="route-steps">
+                                            <div class="rs">
+                                                <div class="rs-dot current"></div>
+                                                <div class="rs-info">
+                                                    <span>Head north from your seat</span
+                                                    ><small>Section B corridor</small>
+                                                </div>
+                                            </div>
+                                            <div class="rs">
+                                                <div class="rs-dot"></div>
+                                                <div class="rs-info">
+                                                    <span>Turn left at junction</span><small>Main concourse</small>
+                                                </div>
+                                            </div>
+                                            <div class="rs">
+                                                <div class="rs-dot dest"></div>
+                                                <div class="rs-info">
+                                                    <span>Arrive at destination</span><small>Beverage Station B</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ FAN ZONE ============ -->
+                    <section class="page" id="page-fan-zone">
+                        <div class="page-hero orange-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-trophy"></i> Fan Zone — Your Match Day Companion</h2>
+                                <p>
+                                    Live stats, instant AR replays, loyalty rewards, digital collectibles, and exclusive
+                                    in-venue experiences.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="fan-layout">
+                            <!-- Score Card -->
+                            <div class="card score-card">
+                                <div class="card-body">
+                                    <div class="score-display">
+                                        <div class="sd-team">
+                                            <div class="sd-logo">⚡</div>
+                                            <span>Thunder FC</span>
+                                        </div>
+                                        <div class="sd-score">
+                                            <span class="sd-num home">2</span><span class="sd-sep">:</span
+                                            ><span class="sd-num away">1</span>
+                                            <div class="sd-timer">
+                                                <span class="sd-live-dot"></span><span id="fan-timer">62:34</span>
+                                            </div>
+                                        </div>
+                                        <div class="sd-team">
+                                            <div class="sd-logo">🌩️</div>
+                                            <span>Storm United</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Stats -->
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-chart-bar"></i> Live Stats</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="stat-rows">
+                                        <div class="stat-row">
+                                            <span class="sr-home">63%</span>
+                                            <div class="sr-bar"><div class="sr-fill-h" style="width: 63%"></div></div>
+                                            <span class="sr-name">Possession</span>
+                                            <div class="sr-bar"><div class="sr-fill-a" style="width: 37%"></div></div>
+                                            <span class="sr-away">37%</span>
+                                        </div>
+                                        <div class="stat-row">
+                                            <span class="sr-home">14</span>
+                                            <div class="sr-bar"><div class="sr-fill-h" style="width: 70%"></div></div>
+                                            <span class="sr-name">Shots</span>
+                                            <div class="sr-bar"><div class="sr-fill-a" style="width: 40%"></div></div>
+                                            <span class="sr-away">8</span>
+                                        </div>
+                                        <div class="stat-row">
+                                            <span class="sr-home">6</span>
+                                            <div class="sr-bar"><div class="sr-fill-h" style="width: 60%"></div></div>
+                                            <span class="sr-name">Corners</span>
+                                            <div class="sr-bar"><div class="sr-fill-a" style="width: 40%"></div></div>
+                                            <span class="sr-away">4</span>
+                                        </div>
+                                        <div class="stat-row">
+                                            <span class="sr-home">1</span>
+                                            <div class="sr-bar"><div class="sr-fill-h" style="width: 25%"></div></div>
+                                            <span class="sr-name">Fouls</span>
+                                            <div class="sr-bar"><div class="sr-fill-a" style="width: 75%"></div></div>
+                                            <span class="sr-away">3</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Rewards -->
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-gem"></i> Loyalty & Rewards</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="xp-display">
+                                        <div class="xp-bar-bg"><div class="xp-bar-fill" style="width: 72%"></div></div>
+                                        <span class="xp-text">Level 8 · 720/1000 XP</span>
+                                    </div>
+                                    <div class="rewards-row">
+                                        <div class="reward unlocked">
+                                            <i class="fas fa-ticket"></i><span>Free Snack</span
+                                            ><small>Redeem now</small>
+                                        </div>
+                                        <div class="reward unlocked">
+                                            <i class="fas fa-percent"></i><span>20% Merch</span
+                                            ><small>Today only</small>
+                                        </div>
+                                        <div class="reward locked">
+                                            <i class="fas fa-lock"></i><span>VIP Pass</span><small>280 XP</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- AR Replay -->
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-vr-cardboard"></i> AR Replay</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="ar-box">
+                                        <div class="ar-screen">
+                                            <div class="ar-tag">AR REPLAY</div>
+                                            <div class="ar-play"><i class="fas fa-play"></i></div>
+                                            <span class="ar-label">⚽ Goal — 62:18</span>
+                                            <div class="ar-angles">
+                                                <button class="angle active">1</button><button class="angle">2</button
+                                                ><button class="angle">3</button><button class="angle">4</button
+                                                ><button class="angle">5</button><button class="angle">6</button
+                                                ><button class="angle">7</button><button class="angle">8</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ SOCIAL PULSE ============ -->
+                    <section class="page" id="page-social-pulse">
+                        <div class="page-hero pink-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-heart-pulse"></i> Social Pulse — Feel the Energy</h2>
+                                <p>
+                                    Real-time crowd sentiment, cheer waves, and fan engagement analytics from acoustic
+                                    sensors, accelerometers, and social feeds.
+                                </p>
+                            </div>
+                            <div class="ph-stats">
+                                <div class="ph-stat">
+                                    <span class="ph-val">🔥 94</span><span class="ph-lbl">Atmosphere</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">147 dB</span><span class="ph-lbl">Peak Noise</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social-layout">
+                            <div class="card" style="grid-column: 1/-1">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-wave-square"></i> Live Energy Wave</div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="energy-canvas" style="width: 100%; height: 140px"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-face-grin-stars"></i> Sentiment</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="sentiment-hero">
+                                        <span class="sh-emoji">🎉</span><span class="sh-label">Ecstatic</span
+                                        ><span class="sh-val">82%</span>
+                                    </div>
+                                    <div class="sentiment-bars">
+                                        <div class="sb">
+                                            <span>🎉</span><span class="sb-name">Ecstatic</span>
+                                            <div class="sb-track"><div class="sb-fill" style="width: 82%"></div></div>
+                                            <span class="sb-pct">82%</span>
+                                        </div>
+                                        <div class="sb">
+                                            <span>😊</span><span class="sb-name">Happy</span>
+                                            <div class="sb-track"><div class="sb-fill" style="width: 12%"></div></div>
+                                            <span class="sb-pct">12%</span>
+                                        </div>
+                                        <div class="sb">
+                                            <span>😐</span><span class="sb-name">Neutral</span>
+                                            <div class="sb-track"><div class="sb-fill" style="width: 4%"></div></div>
+                                            <span class="sb-pct">4%</span>
+                                        </div>
+                                        <div class="sb">
+                                            <span>😤</span><span class="sb-name">Frustrated</span>
+                                            <div class="sb-track"><div class="sb-fill" style="width: 2%"></div></div>
+                                            <span class="sb-pct">2%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-hands-clapping"></i> Cheer Moments</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="cheer-list">
+                                        <div class="cheer peak">
+                                            <span class="ch-time">62:18</span>
+                                            <div class="ch-bar"><div class="ch-fill" style="width: 95%"></div></div>
+                                            <span class="ch-event">⚽ GOAL! Thunder 2-1</span>
+                                        </div>
+                                        <div class="cheer high">
+                                            <span class="ch-time">58:42</span>
+                                            <div class="ch-bar"><div class="ch-fill" style="width: 72%"></div></div>
+                                            <span class="ch-event">🟨 Yellow Card</span>
+                                        </div>
+                                        <div class="cheer med">
+                                            <span class="ch-time">45:00</span>
+                                            <div class="ch-bar"><div class="ch-fill" style="width: 60%"></div></div>
+                                            <span class="ch-event">⏱ Halftime</span>
+                                        </div>
+                                        <div class="cheer peak">
+                                            <span class="ch-time">34:11</span>
+                                            <div class="ch-bar"><div class="ch-fill" style="width: 98%"></div></div>
+                                            <span class="ch-event">⚽ GOAL! Thunder 1-1</span>
+                                        </div>
+                                        <div class="cheer high">
+                                            <span class="ch-time">12:05</span>
+                                            <div class="ch-bar"><div class="ch-fill" style="width: 88%"></div></div>
+                                            <span class="ch-event">⚽ GOAL! Storm 1-0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" style="grid-column: 1/-1">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-gamepad"></i> Fan Interactions</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="fan-btns">
+                                        <button class="fan-btn cheer-btn" id="fb-cheer">
+                                            <span class="fb-emoji">👏</span><span class="fb-name">Cheer</span
+                                            ><span class="fb-count">24.3K</span>
+                                        </button>
+                                        <button class="fan-btn wave-btn" id="fb-wave">
+                                            <span class="fb-emoji">🌊</span><span class="fb-name">Wave</span
+                                            ><span class="fb-count">8.1K</span>
+                                        </button>
+                                        <button class="fan-btn chant-btn" id="fb-chant">
+                                            <span class="fb-emoji">📣</span><span class="fb-name">Chant</span
+                                            ><span class="fb-count">15.7K</span>
+                                        </button>
+                                        <button class="fan-btn flash-btn" id="fb-flash">
+                                            <span class="fb-emoji">📱</span><span class="fb-name">Flashlight</span
+                                            ><span class="fb-count">31.2K</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ FOOD & BEVERAGE ============ -->
+                    <section class="page" id="page-food-order">
+                        <div class="page-hero orange-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-burger"></i> Food & Beverage — Mobile Ordering</h2>
+                                <p>
+                                    Order from your seat, skip the line. AI suggests the best vendor based on your
+                                    location, wait times, and preferences.
+                                </p>
+                            </div>
+                            <div class="ph-stats">
+                                <div class="ph-stat">
+                                    <span class="ph-val">38s</span><span class="ph-lbl">Avg Pickup</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">147</span><span class="ph-lbl">Orders/min</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="food-layout">
+                            <div class="card card-lg">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-fire-flame-curved"></i> Popular Now</div>
+                                    <div class="card-chips">
+                                        <button class="chip active">All</button><button class="chip">Burgers</button
+                                        ><button class="chip">Pizza</button><button class="chip">Drinks</button
+                                        ><button class="chip">Snacks</button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="menu-grid" id="menu-grid"><!-- JS --></div>
+                                </div>
+                            </div>
+                            <div class="food-side">
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-cart-shopping"></i> Your Cart</div>
+                                    </div>
+                                    <div class="card-body" id="cart-body">
+                                        <div class="empty-state small">
+                                            <i class="fas fa-cart-plus"></i>
+                                            <p>Cart is empty</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-star"></i> AI Picks For You</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="ai-pick">
+                                            <span class="aip-emoji">🍔</span>
+                                            <div>
+                                                <strong>Smash Burger Combo</strong>
+                                                <p>Most ordered near your section — ready in 3 min</p>
+                                            </div>
+                                            <span class="aip-price">$12.99</span>
+                                        </div>
+                                        <div class="ai-pick">
+                                            <span class="aip-emoji">🍺</span>
+                                            <div>
+                                                <strong>Craft IPA</strong>
+                                                <p>Perfect for the weather — cold & refreshing</p>
+                                            </div>
+                                            <span class="aip-price">$8.99</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ SMART PARKING ============ -->
+                    <section class="page" id="page-parking">
+                        <div class="page-hero teal-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-square-parking"></i> Smart Parking System</h2>
+                                <p>
+                                    Real-time lot availability, guided navigation to open spots, and AI-predicted exit
+                                    times to avoid post-game congestion.
+                                </p>
+                            </div>
+                            <div class="ph-stats">
+                                <div class="ph-stat">
+                                    <span class="ph-val">4,950</span><span class="ph-lbl">Total Spots</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">545</span><span class="ph-lbl">Available</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">89%</span><span class="ph-lbl">Occupied</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="park-layout">
+                            <div class="card card-lg">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-map-location-dot"></i> Parking Map</div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="parking-canvas" style="width: 100%; height: 380px"></canvas>
+                                </div>
+                            </div>
+                            <div class="park-side">
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-car"></i> Your Vehicle</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="vehicle-info">
+                                            <div class="vi-row">
+                                                <span class="vi-lbl">Location</span
+                                                ><span class="vi-val">Lot B, Row 14, Spot 7</span>
+                                            </div>
+                                            <div class="vi-row">
+                                                <span class="vi-lbl">Parked At</span><span class="vi-val">4:12 PM</span>
+                                            </div>
+                                            <div class="vi-row">
+                                                <span class="vi-lbl">Duration</span><span class="vi-val">2h 22m</span>
+                                            </div>
+                                        </div>
+                                        <button
+                                            class="btn-primary full-w"
+                                            onclick="
+                                                showToast(
+                                                    'info',
+                                                    'Navigate to Car',
+                                                    'Opening turn-by-turn directions to Lot B.',
+                                                )
+                                            "
+                                        >
+                                            <i class="fas fa-route"></i> Navigate to My Car
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-clock"></i> Exit Planner</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="exit-plan">
+                                            <div class="ep-opt best">
+                                                <div class="ep-time">Leave at 85'</div>
+                                                <div class="ep-detail">
+                                                    <strong>12 min exit</strong>
+                                                    <p>Beat 94% of traffic</p>
+                                                </div>
+                                                <span class="ep-badge">Recommended</span>
+                                            </div>
+                                            <div class="ep-opt">
+                                                <div class="ep-time">Full Time</div>
+                                                <div class="ep-detail">
+                                                    <strong>28 min exit</strong>
+                                                    <p>Moderate congestion</p>
+                                                </div>
+                                            </div>
+                                            <div class="ep-opt">
+                                                <div class="ep-time">+15 min after</div>
+                                                <div class="ep-detail">
+                                                    <strong>18 min exit</strong>
+                                                    <p>Rush subsiding</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ TRANSPORT HUB ============ -->
+                    <section class="page" id="page-transport">
+                        <div class="page-hero blue-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-bus"></i> Transport Hub — Get Home Smart</h2>
+                                <p>
+                                    Real-time public transport, ride-sharing coordination, and AI-optimized departure
+                                    planning to minimize post-event delays.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="transport-layout">
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-train-subway"></i> Nearby Transit</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="transit-list">
+                                        <div class="transit-item">
+                                            <div class="ti-icon metro"><i class="fas fa-train-subway"></i></div>
+                                            <div class="ti-info">
+                                                <strong>Metro Blue Line</strong>
+                                                <p>Arena Station — Platform 2</p>
+                                            </div>
+                                            <div class="ti-time">
+                                                <span class="ti-mins">3 min</span
+                                                ><span class="ti-next">then 8, 14</span>
+                                            </div>
+                                        </div>
+                                        <div class="transit-item">
+                                            <div class="ti-icon bus"><i class="fas fa-bus"></i></div>
+                                            <div class="ti-info">
+                                                <strong>Bus Route 42</strong>
+                                                <p>Stop: Arena Main Gate</p>
+                                            </div>
+                                            <div class="ti-time">
+                                                <span class="ti-mins">7 min</span><span class="ti-next">then 22</span>
+                                            </div>
+                                        </div>
+                                        <div class="transit-item">
+                                            <div class="ti-icon tram"><i class="fas fa-train-tram"></i></div>
+                                            <div class="ti-info">
+                                                <strong>Tram Line T3</strong>
+                                                <p>Arena West Stop</p>
+                                            </div>
+                                            <div class="ti-time">
+                                                <span class="ti-mins">12 min</span><span class="ti-next">then 24</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-car-side"></i> Ride Share</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="ride-list">
+                                        <div class="ride-item">
+                                            <div class="ride-logo" style="background: #000">U</div>
+                                            <div class="ride-info">
+                                                <strong>Uber</strong>
+                                                <p>Pickup: Gate C</p>
+                                            </div>
+                                            <div class="ride-est">
+                                                <span class="ride-price">$18-24</span
+                                                ><span class="ride-eta">4 min away</span>
+                                            </div>
+                                            <button
+                                                class="btn-outline"
+                                                onclick="
+                                                    showToast(
+                                                        'success',
+                                                        'Ride Requested',
+                                                        'Uber ride booked. Pickup at Gate C.',
+                                                    )
+                                                "
+                                            >
+                                                Book
+                                            </button>
+                                        </div>
+                                        <div class="ride-item">
+                                            <div class="ride-logo" style="background: #ff1493">L</div>
+                                            <div class="ride-info">
+                                                <strong>Lyft</strong>
+                                                <p>Pickup: Gate A</p>
+                                            </div>
+                                            <div class="ride-est">
+                                                <span class="ride-price">$16-22</span
+                                                ><span class="ride-eta">6 min away</span>
+                                            </div>
+                                            <button class="btn-outline">Book</button>
+                                        </div>
+                                    </div>
+                                    <div class="surge-alert">
+                                        <i class="fas fa-triangle-exclamation"></i
+                                        ><span>Surge pricing expected after full-time. Book early or use transit!</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-people-group"></i> Shared Rides</div>
+                                </div>
+                                <div class="card-body">
+                                    <p style="color: var(--text-sec); font-size: 0.85rem; margin-bottom: 12px">
+                                        Save money and reduce congestion by sharing rides with nearby fans going your
+                                        way.
+                                    </p>
+                                    <div class="share-matches">
+                                        <div class="share-match">
+                                            <img
+                                                src="https://api.dicebear.com/7.x/initials/svg?seed=JK&backgroundColor=10b981"
+                                                class="sm-avatar"
+                                            />
+                                            <div class="sm-info">
+                                                <strong>Jake K.</strong>
+                                                <p>Heading to Downtown · 3 seats</p>
+                                            </div>
+                                            <button class="btn-outline small">Join</button>
+                                        </div>
+                                        <div class="share-match">
+                                            <img
+                                                src="https://api.dicebear.com/7.x/initials/svg?seed=SR&backgroundColor=6366f1"
+                                                class="sm-avatar"
+                                            />
+                                            <div class="sm-info">
+                                                <strong>Sara R.</strong>
+                                                <p>Heading to Westside · 2 seats</p>
+                                            </div>
+                                            <button class="btn-outline small">Join</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ ACCESSIBILITY ============ -->
+                    <section class="page" id="page-accessibility">
+                        <div class="page-hero purple-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-universal-access"></i> Accessibility Services</h2>
+                                <p>
+                                    Inclusive experiences for all. Wheelchair-accessible routes, hearing assistance,
+                                    sensory rooms, and companion assistance — all powered by AI.
+                                </p>
+                            </div>
+                            <div class="ph-stats">
+                                <div class="ph-stat">
+                                    <span class="ph-val">8</span><span class="ph-lbl">Elevators</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">12</span><span class="ph-lbl">Languages</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">3</span><span class="ph-lbl">Quiet Pods</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="access-layout-2col">
+                            <!-- Accessibility Map Canvas -->
+                            <div class="card card-lg">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-map"></i> Accessible Venue Map</div>
+                                    <div class="card-chips">
+                                        <button class="chip active" id="acc-map-all">All</button>
+                                        <button class="chip" id="acc-map-elev">Elevators</button>
+                                        <button class="chip" id="acc-map-ramp">Ramps</button>
+                                        <button class="chip" id="acc-map-wc">WC</button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="access-canvas" style="width: 100%; height: 420px"></canvas>
+                                </div>
+                            </div>
+                            <!-- Right Column: Feature Cards -->
+                            <div class="access-side">
+                                <!-- Accessible Routes Card -->
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title">
+                                            <i class="fas fa-wheelchair-move"></i> Accessible Routes
+                                        </div>
+                                    </div>
+                                    <div class="card-body" id="acc-routes-body">
+                                        <div class="access-feature" id="af-elevator">
+                                            <div class="af-icon blue"><i class="fas fa-elevator"></i></div>
+                                            <div class="af-text">
+                                                <strong>Elevator Navigation</strong>
+                                                <p>
+                                                    All 8 elevators tracked in real-time. Nearest:
+                                                    <strong id="elev-nearest">Elevator 3 — 45m</strong>
+                                                </p>
+                                                <div class="elev-grid" id="elev-grid">
+                                                    <div class="elev-item ok" data-elev="1">
+                                                        <span class="elev-num">E1</span
+                                                        ><span class="elev-floor">L1</span
+                                                        ><span class="elev-status"><i class="fas fa-circle"></i></span>
+                                                    </div>
+                                                    <div class="elev-item ok" data-elev="2">
+                                                        <span class="elev-num">E2</span
+                                                        ><span class="elev-floor">L2</span
+                                                        ><span class="elev-status"><i class="fas fa-circle"></i></span>
+                                                    </div>
+                                                    <div class="elev-item busy" data-elev="3">
+                                                        <span class="elev-num">E3</span
+                                                        ><span class="elev-floor">L1</span
+                                                        ><span class="elev-status"><i class="fas fa-circle"></i></span>
+                                                    </div>
+                                                    <div class="elev-item ok" data-elev="4">
+                                                        <span class="elev-num">E4</span
+                                                        ><span class="elev-floor">L3</span
+                                                        ><span class="elev-status"><i class="fas fa-circle"></i></span>
+                                                    </div>
+                                                    <div class="elev-item maint" data-elev="5">
+                                                        <span class="elev-num">E5</span><span class="elev-floor">—</span
+                                                        ><span class="elev-status"><i class="fas fa-wrench"></i></span>
+                                                    </div>
+                                                    <div class="elev-item ok" data-elev="6">
+                                                        <span class="elev-num">E6</span
+                                                        ><span class="elev-floor">L1</span
+                                                        ><span class="elev-status"><i class="fas fa-circle"></i></span>
+                                                    </div>
+                                                    <div class="elev-item busy" data-elev="7">
+                                                        <span class="elev-num">E7</span
+                                                        ><span class="elev-floor">L2</span
+                                                        ><span class="elev-status"><i class="fas fa-circle"></i></span>
+                                                    </div>
+                                                    <div class="elev-item ok" data-elev="8">
+                                                        <span class="elev-num">E8</span
+                                                        ><span class="elev-floor">L1</span
+                                                        ><span class="elev-status"><i class="fas fa-circle"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="elev-legend">
+                                                    <span
+                                                        ><i
+                                                            class="fas fa-circle"
+                                                            style="color: var(--green); font-size: 0.5rem"
+                                                        ></i>
+                                                        Available</span
+                                                    ><span
+                                                        ><i
+                                                            class="fas fa-circle"
+                                                            style="color: var(--orange); font-size: 0.5rem"
+                                                        ></i>
+                                                        In Use</span
+                                                    ><span
+                                                        ><i
+                                                            class="fas fa-wrench"
+                                                            style="color: var(--text-ter); font-size: 0.55rem"
+                                                        ></i>
+                                                        Maintenance</span
+                                                    >
+                                                </div>
+                                            </div>
+                                            <button class="btn-outline" id="btn-elev-nav">Navigate</button>
+                                        </div>
+                                        <div class="access-feature" id="af-wheelchair">
+                                            <div class="af-icon green"><i class="fas fa-route"></i></div>
+                                            <div class="af-text">
+                                                <strong>Wheelchair-Accessible Routes</strong>
+                                                <p>
+                                                    AI-optimized barrier-free paths with ramp detection and width
+                                                    verification.
+                                                </p>
+                                                <div class="wc-route-info hidden" id="wc-route-info">
+                                                    <div class="wc-route-card">
+                                                        <div class="wc-stat">
+                                                            <i class="fas fa-arrows-left-right"></i
+                                                            ><span>Min Width: <strong>1.5m</strong></span>
+                                                        </div>
+                                                        <div class="wc-stat">
+                                                            <i class="fas fa-mountain"></i
+                                                            ><span>Ramps: <strong>2</strong></span>
+                                                        </div>
+                                                        <div class="wc-stat">
+                                                            <i class="fas fa-shoe-prints"></i
+                                                            ><span>Distance: <strong>140m</strong></span>
+                                                        </div>
+                                                        <div class="wc-stat">
+                                                            <i class="fas fa-clock"></i
+                                                            ><span>Est. Time: <strong>3:20</strong></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="wc-steps">
+                                                        <div class="wc-step done">
+                                                            <i class="fas fa-circle-check"></i
+                                                            ><span>Start: Your Location</span>
+                                                        </div>
+                                                        <div class="wc-step">
+                                                            <i class="fas fa-arrow-right"></i
+                                                            ><span>Ramp to Level 1 (gentle, 5%)</span>
+                                                        </div>
+                                                        <div class="wc-step">
+                                                            <i class="fas fa-arrow-right"></i
+                                                            ><span>Wide corridor → Gate B</span>
+                                                        </div>
+                                                        <div class="wc-step">
+                                                            <i class="fas fa-arrow-right"></i
+                                                            ><span>Elevator E3 to Level 2</span>
+                                                        </div>
+                                                        <div class="wc-step dest">
+                                                            <i class="fas fa-flag-checkered"></i
+                                                            ><span>Section B, Row 12 (Accessible)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn-outline" id="btn-wheelchair-routes">View Routes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Hearing Assistance Card -->
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title">
+                                            <i class="fas fa-ear-listen"></i> Hearing Assistance
+                                        </div>
+                                    </div>
+                                    <div class="card-body" id="acc-hearing-body">
+                                        <div class="access-feature" id="af-audio">
+                                            <div class="af-icon purple"><i class="fas fa-headphones"></i></div>
+                                            <div class="af-text">
+                                                <strong>Audio Enhancement</strong>
+                                                <p id="audio-status-text">
+                                                    Connect hearing aids via T-loop. Commentary available in 12
+                                                    languages.
+                                                </p>
+                                                <div class="hidden" id="audio-connected-ui">
+                                                    <div class="audio-connected-badge">
+                                                        <i class="fas fa-check-circle"></i> Connected via T-loop
+                                                    </div>
+                                                    <div class="audio-lang-select">
+                                                        <label>Commentary Language:</label>
+                                                        <select id="audio-lang">
+                                                            <option value="en" selected>English</option>
+                                                            <option value="es">Español</option>
+                                                            <option value="fr">Français</option>
+                                                            <option value="de">Deutsch</option>
+                                                            <option value="pt">Português</option>
+                                                            <option value="ja">日本語</option>
+                                                            <option value="zh">中文</option>
+                                                            <option value="ar">العربية</option>
+                                                            <option value="hi">हिन्दी</option>
+                                                            <option value="ko">한국어</option>
+                                                            <option value="it">Italiano</option>
+                                                            <option value="nl">Nederlands</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="audio-volume">
+                                                        <label><i class="fas fa-volume-low"></i></label>
+                                                        <input
+                                                            type="range"
+                                                            id="audio-vol"
+                                                            min="0"
+                                                            max="100"
+                                                            value="70"
+                                                        />
+                                                        <label><i class="fas fa-volume-high"></i></label>
+                                                        <span id="audio-vol-val">70%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn-outline" id="btn-audio-connect">Connect</button>
+                                        </div>
+                                        <div class="access-feature" id="af-captions">
+                                            <div class="af-icon pink"><i class="fas fa-closed-captioning"></i></div>
+                                            <div class="af-text">
+                                                <strong>Live Captions</strong>
+                                                <p id="caption-status-text">
+                                                    Real-time captions on your device for all stadium announcements.
+                                                </p>
+                                                <div class="hidden" id="captions-ui">
+                                                    <div class="captions-display" id="captions-display">
+                                                        <div class="caption-line">
+                                                            <span class="cap-time">62:40</span
+                                                            ><span class="cap-text"
+                                                                >And Thunder FC take the lead with a brilliant
+                                                                goal!</span
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                    <div class="caption-settings">
+                                                        <div class="cap-size-control">
+                                                            <label>Text Size:</label>
+                                                            <button class="cap-sz" data-size="small">A</button>
+                                                            <button class="cap-sz active" data-size="medium">A</button>
+                                                            <button class="cap-sz" data-size="large">A</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn-outline" id="btn-captions-toggle">Enable</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Sensory & Comfort Card -->
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-spa"></i> Sensory & Comfort</div>
+                                    </div>
+                                    <div class="card-body" id="acc-sensory-body">
+                                        <div class="access-feature" id="af-quiet">
+                                            <div class="af-icon teal"><i class="fas fa-volume-xmark"></i></div>
+                                            <div class="af-text">
+                                                <strong>Quiet Room</strong>
+                                                <p id="quiet-status-text">
+                                                    Sensory-friendly space in Section G. Currently available.
+                                                </p>
+                                                <div class="quiet-pods" id="quiet-pods">
+                                                    <button class="pod-btn available" data-pod="1">
+                                                        <i class="fas fa-couch"></i><span>Pod 1</span
+                                                        ><small>Available</small>
+                                                    </button>
+                                                    <button class="pod-btn available" data-pod="2">
+                                                        <i class="fas fa-couch"></i><span>Pod 2</span
+                                                        ><small>Available</small>
+                                                    </button>
+                                                    <button class="pod-btn occupied" data-pod="3">
+                                                        <i class="fas fa-couch"></i><span>Pod 3</span
+                                                        ><small>Occupied</small>
+                                                    </button>
+                                                    <button class="pod-btn available" data-pod="4">
+                                                        <i class="fas fa-couch"></i><span>Pod 4</span
+                                                        ><small>Available</small>
+                                                    </button>
+                                                </div>
+                                                <div class="hidden" id="quiet-reservation">
+                                                    <div class="quiet-res-card">
+                                                        <div class="qrc-head">
+                                                            <i
+                                                                class="fas fa-check-circle"
+                                                                style="color: var(--green)"
+                                                            ></i>
+                                                            <strong>Reserved!</strong>
+                                                        </div>
+                                                        <p>Pod <span id="res-pod-num">1</span> · Section G, Gate 5</p>
+                                                        <div class="qrc-timer">
+                                                            <i class="fas fa-hourglass-half"></i> Time Remaining:
+                                                            <strong id="res-timer">30:00</strong>
+                                                        </div>
+                                                        <button
+                                                            class="btn-outline small"
+                                                            id="btn-cancel-pod"
+                                                            style="
+                                                                color: var(--red);
+                                                                border-color: rgba(234, 67, 53, 0.3);
+                                                                margin-top: 8px;
+                                                            "
+                                                        >
+                                                            Cancel Reservation
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn-outline" id="btn-quiet-info">Reserve</button>
+                                        </div>
+                                        <div class="access-feature" id="af-companion">
+                                            <div class="af-icon orange"><i class="fas fa-hands-holding-child"></i></div>
+                                            <div class="af-text">
+                                                <strong>Companion Support</strong>
+                                                <p id="companion-status-text">
+                                                    Request a venue buddy for navigation and assistance.
+                                                </p>
+                                                <div class="hidden" id="companion-ui">
+                                                    <div class="companion-card">
+                                                        <div class="comp-profile">
+                                                            <img
+                                                                src="https://api.dicebear.com/7.x/initials/svg?seed=MM&backgroundColor=f97316&textColor=ffffff"
+                                                                class="comp-avatar"
+                                                                alt="Companion"
+                                                            />
+                                                            <div class="comp-info">
+                                                                <strong>Maria M.</strong>
+                                                                <small>Accessibility Staff · 4.9 ⭐</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="comp-eta">
+                                                            <i class="fas fa-walking"></i>
+                                                            <span>ETA: <strong id="companion-eta">2:45</strong></span>
+                                                        </div>
+                                                        <div class="comp-progress">
+                                                            <div class="comp-bar">
+                                                                <div
+                                                                    class="comp-fill"
+                                                                    id="companion-progress"
+                                                                    style="width: 0%"
+                                                                ></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="comp-actions">
+                                                            <button class="btn-outline small" id="btn-msg-companion">
+                                                                <i class="fas fa-comment"></i> Message
+                                                            </button>
+                                                            <button
+                                                                class="btn-outline small"
+                                                                id="btn-cancel-companion"
+                                                                style="
+                                                                    color: var(--red);
+                                                                    border-color: rgba(234, 67, 53, 0.3);
+                                                                "
+                                                            >
+                                                                <i class="fas fa-times"></i> Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn-outline" id="btn-companion-req">Request</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ SAFETY ============ -->
+                    <section class="page" id="page-safety">
+                        <div class="page-hero green-hero">
+                            <div class="ph-content">
+                                <h2><i class="fas fa-shield-halved"></i> Safety Intelligence Center</h2>
+                                <p>
+                                    AI-powered emergency management, dynamic evacuation with personalized routes,
+                                    incident tracking, and predictive safety analytics.
+                                </p>
+                            </div>
+                            <div class="ph-stats">
+                                <div class="ph-stat">
+                                    <span class="ph-val safe-text">ALL CLEAR</span><span class="ph-lbl">Status</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">24</span><span class="ph-lbl">Exit Routes</span>
+                                </div>
+                                <div class="ph-stat">
+                                    <span class="ph-val">3.2m</span><span class="ph-lbl">Evac Time</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="safety-layout">
+                            <div class="card card-lg">
+                                <div class="card-head">
+                                    <div class="card-title"><i class="fas fa-map-location-dot"></i> Evacuation Map</div>
+                                    <button class="chip danger" id="sim-evac-btn">
+                                        <i class="fas fa-play"></i> Simulate
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="evac-canvas" style="width: 100%; height: 380px"></canvas>
+                                </div>
+                            </div>
+                            <div class="safety-side">
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-signal"></i> Systems</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="sys-list">
+                                            <div class="sys ok">
+                                                <i class="fas fa-circle"></i><span>Fire Suppression</span
+                                                ><span class="sys-status">Online</span>
+                                            </div>
+                                            <div class="sys ok">
+                                                <i class="fas fa-circle"></i><span>CCTV (48/48)</span
+                                                ><span class="sys-status">Online</span>
+                                            </div>
+                                            <div class="sys ok">
+                                                <i class="fas fa-circle"></i><span>PA System</span
+                                                ><span class="sys-status">Online</span>
+                                            </div>
+                                            <div class="sys ok">
+                                                <i class="fas fa-circle"></i><span>Emergency Lights</span
+                                                ><span class="sys-status">Online</span>
+                                            </div>
+                                            <div class="sys warn">
+                                                <i class="fas fa-circle"></i><span>Exit Gate 7</span
+                                                ><span class="sys-status">20% Blocked</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="card-title"><i class="fas fa-clipboard-list"></i> Incidents</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="inc-list">
+                                            <div class="inc minor">
+                                                <span class="inc-badge">Minor</span>
+                                                <div class="inc-info">
+                                                    <strong>Dehydration</strong
+                                                    ><small>Section D, Row 23 — Resolved</small>
+                                                </div>
+                                                <span class="inc-time">14m</span>
+                                            </div>
+                                            <div class="inc minor">
+                                                <span class="inc-badge">Minor</span>
+                                                <div class="inc-info">
+                                                    <strong>Spill Cleanup</strong
+                                                    ><small>East Concourse — In progress</small>
+                                                </div>
+                                                <span class="inc-time">22m</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="sos-btn" id="sos-btn">
+                                    <i class="fas fa-phone"></i><span>Emergency SOS</span
+                                    ><small>Alert security instantly</small>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        <!-- Toasts -->
+        <div class="toast-box" id="toast-box"></div>
+
+        <!-- Notification Panel -->
+        <div class="notif-panel hidden" id="notif-panel">
+            <div class="np-header">
+                <h3>Notifications</h3>
+                <button class="np-close" id="np-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="np-body">
+                <div class="np-item unread">
+                    <div class="np-dot"></div>
+                    <div class="np-content">
+                        <strong>Queue Ready!</strong>
+                        <p>Your turn at Beverage Station B — head there now!</p>
+                        <small>2 min ago</small>
+                    </div>
+                </div>
+                <div class="np-item unread">
+                    <div class="np-dot"></div>
+                    <div class="np-content">
+                        <strong>Goal Alert ⚽</strong>
+                        <p>Thunder FC scores! Stadium energy at 94/100.</p>
+                        <small>5 min ago</small>
+                    </div>
+                </div>
+                <div class="np-item">
+                    <div class="np-dot"></div>
+                    <div class="np-content">
+                        <strong>Crowd Tip</strong>
+                        <p>Restrooms in Sector B have no wait right now.</p>
+                        <small>12 min ago</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="app.js"></script>
+    </body>
+</html>
